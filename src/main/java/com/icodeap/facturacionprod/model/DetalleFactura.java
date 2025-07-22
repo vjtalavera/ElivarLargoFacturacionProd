@@ -1,29 +1,32 @@
 package com.icodeap.facturacionprod.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "productos")
+@Table(name = "detalle_facturas")
 @Getter
 @Setter
-public class Producto {
+public class DetalleFactura {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String nombre;
-    private String detalle;
+    private Integer idProducto;
+    private Integer cantidad;
     private BigDecimal precio;
+    private BigDecimal total;
 
-    @Column(updatable = false)
     @CreationTimestamp
     private LocalDateTime fechaCreado;
-    @UpdateTimestamp
-    private LocalDateTime fechaActualizado;
+
+    @ManyToOne
+    @JsonIgnore
+    @JoinColumn(name = "id_factura")
+    private Factura factura;
 }
