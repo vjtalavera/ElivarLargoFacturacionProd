@@ -2,6 +2,7 @@ package com.icodeap.facturacionprod.controller;
 
 import com.icodeap.facturacionprod.dto.ProductoDTO;
 import com.icodeap.facturacionprod.service.ProductoService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/productos")
+@Slf4j
 public class ProductoController {
 
     private final ProductoService productoService;
@@ -25,6 +27,7 @@ public class ProductoController {
 
     @GetMapping
     public ResponseEntity<List<ProductoDTO>> findAll() {
+        log.info( "findAll()");
         List<ProductoDTO> productosDTOS = productoService.findAll();
         if (productosDTOS.isEmpty()) {
             return ResponseEntity.noContent().build();
